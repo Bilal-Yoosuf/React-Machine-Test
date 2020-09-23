@@ -28,3 +28,43 @@ td {
   width: 180px;
   margin-right: 30px;
 }
+.tasks__add{
+  background-color: #0566C6;
+  width: 200px;
+  height: 40px;
+  margin:20px auto;
+  color: white;
+  border-radius: 10px;
+  border:none;
+}
+.todo__add{
+  padding: 10px;
+  background-color: #0566C6;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  width: 180px;
+  margin-right: 30px;
+}
+td > input{
+  height: 30px;
+}
+
+@media  screen and  (max-width:550px){
+   .todo__add,.todo__delete{
+     width: 100px;
+   }
+   .todo__title{
+    max-width: 100px;
+    min-width: 100px;
+    
+  }
+  td{
+    font-size: 70%;
+  }
+  .todo__item {
+    margin: 3px 8px;
+    font-weight: bold;
+  }
+
+}

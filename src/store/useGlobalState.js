@@ -16,12 +16,7 @@ const reducer = (state, action) => {
   }
 };
 
-// const useGlobalState = () => {
-//     const [globalState, globalDispatch] = useReducer(reducer, {
-//       isLoggedIn: false,
-//     });
-//     return [globalState, globalDispatch];
-//   };
+
   const useGlobalState = () => {
     return useReducer(reducer, {
       isLoggedIn: false,
