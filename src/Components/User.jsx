@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import LoggedUser from "./LoggedUser";
+import React, { useContext, useState } from "react";
+import Context from "../store/context";
 import "./User.css";
 
 function User() {
-  const [isLogged, setLogged] = useState(false);
+  const [globalState, globalDispatch] = useContext(Context);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameErr, setUsernameErr] = useState({});
   const [passwordErr, setPasswordErr] = useState({});
+  const [changePassword, setChangePassword] = useState(false);
+
 
   const onSubmit = (e) => {
     e.preventDefault();
     const isValid = formValidation();
-    isValid && setLogged(true);
+    isValid && globalDispatch({ type: "LOGIN" });
   };
 
   const formValidation = () => {
@@ -39,9 +41,13 @@ function User() {
     setPasswordErr(passwordErr);
     return isValid;
   };
+
   return (
-    <div className="user">
-      {!isLogged ? (
+    <div>
+      <div
+        style={{ display: globalState.isLoggedIn && "none" }}
+        className="user"
+      >
         <form onSubmit={onSubmit} className="user">
           <div className="user__row">
             <label>Username : </label>
@@ -78,9 +84,59 @@ function User() {
             Login
           </button>
         </form>
-      ) : (
-        <LoggedUser username={username} password={password} />
-      )}
+      </div>
+      <div style={{display:!globalState.isLoggedIn&&"none"}}>
+        <form className="user">
+          <div className="user__row">
+            <label>Username : </label>
+            <span type="text" className="user__input user__username">
+              {username}
+            </span>
+          </div>
+
+          {changePassword ? (
+            <div className="user__row">
+              <label>New Password : </label>
+              <input type="password" className="user__input user__password" />
+            </div>
+          ) : (
+            <div className="user__row">
+              <label>Password : </label>
+              <span
+                type="password"
+                className="user__input user__password"
+              ></span>
+            </div>
+          )}
+
+          <div className="user__buttons">
+            {!changePassword ? (
+              <button
+                onClick={() => setChangePassword(true)}
+                type="button"
+                className="user__submit"
+              >
+                Change Password
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="user__submit"
+                onClick={() => setChangePassword(false)}
+              >
+                Save Password
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => globalDispatch({ type: "LOGOUT" })}
+              className="user__logout"
+            >
+              Logout
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

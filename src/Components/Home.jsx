@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Context from "../store/context";
 import "./Home.css";
 import Info from "./Info";
 
 function Home() {
+  const [globalState, globalDispatch] = useContext(Context);
+
   const [dropValue, setValue] = useState("");
   function handleClick(event) {
     setValue(event.target.name);
@@ -38,13 +41,14 @@ function Home() {
         return (
           <Info
             heading="Link 1 Info"
-            details="This is information about Link 1"
+            details="This is information about Link 1.
+            Describing the details about first link."
           />
         );
     }
   }
 
-  return (
+  return globalState.isLoggedIn ? (
     <div className="home">
       <div className="dropdown">
         <button class="dropbtn">Dropdown</button>
@@ -62,6 +66,8 @@ function Home() {
       </div>
       <div>{renderInfo(dropValue)}</div>
     </div>
+  ) : (
+    <h1>Please Login</h1>
   );
 }
 

@@ -18,7 +18,8 @@
     min-height:30px ;
 
 }
-.user__submit{
+
+.user__submit , .user__logout{
     width: 200px;
     border: 1px solid black;
     background-color: white;
@@ -30,3 +31,9 @@
     margin: 20px;
     padding: 10px;
 }
+span{
+   display: inline-block;
+   width: 300px;
+}
+
+

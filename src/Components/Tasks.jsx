@@ -1,8 +1,10 @@
 import Axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import Context from "../store/context";
 import "./Tasks.css";
 
 function Tasks() {
+  const [globalState,globalDispatch] =useContext(Context);
   const [toDoList, setList] = useState([]);
   const url = "https://jsonplaceholder.typicode.com/todos";
   var newToDoList =[];
@@ -22,6 +24,7 @@ function Tasks() {
   };
 
   return (
+    globalState.isLoggedIn?
     <div className="tasks">
       <table>
         <tbody>
@@ -45,7 +48,7 @@ function Tasks() {
           })}
         </tbody>
       </table>
-    </div>
+    </div>:<h1>Please Login</h1>
   );
 }
 
